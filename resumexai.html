@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ResumeXAI - Explainable Resume Analysis</title>
+
+    <link rel="stylesheet" href="resumexai.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+        <div class="logo-icon">X</div>
+        <div>
+            <h2>Resume<span>XAI</span></h2>
+            <small>AI Resume Intelligence</small>
+        </div>
+    </div>
+
+    <nav>
+
+        <a href="#" class="nav-item active">
+            <span>⌂</span>
+            Dashboard
+        </a>
+
+        <a href="#" class="nav-item">
+            <span>▣</span>
+            Resume Analysis
+        </a>
+
+        <a href="#" class="nav-item">
+            <span>◈</span>
+            Job Matching
+        </a>
+
+        <a href="#" class="nav-item">
+            <span>◉</span>
+            XAI Insights
+        </a>
+
+        <a href="#" class="nav-item">
+            <span>▤</span>
+            Reports
+        </a>
+
+        <a href="#" class="nav-item">
+            <span>◌</span>
+            History
+        </a>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+
+        <a href="#" class="nav-item">
+            <span>⚙</span>
+            Settings
+        </a>
+
+        <div class="profile">
+            <div class="avatar">V</div>
+            <div>
+                <strong>Candidate</strong>
+                <small>Free Account</small>
+            </div>
+        </div>
+
+    </div>
+
+</aside>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="main">
+
+    <!-- HEADER -->
+
+    <header class="topbar">
+
+        <div>
+            <h1>Resume Analysis</h1>
+            <p>Understand your resume with AI-powered insights.</p>
+        </div>
+
+        <button class="notification">
+            🔔
+        </button>
+
+    </header>
+
+
+    <!-- ================= UPLOAD SECTION ================= -->
+
+    <section class="upload-section">
+
+        <div class="upload-card">
+
+            <div class="section-heading">
+                <div>
+                    <h2>Analyze Your Resume</h2>
+                    <p>Upload your resume and compare it with a target job description.</p>
+                </div>
+            </div>
+
+            <div class="upload-grid">
+
+                <!-- Resume -->
+
+                <div class="upload-box">
+
+                    <div class="upload-icon">
+                        ↑
+                    </div>
+
+                    <h3>Upload Resume</h3>
+
+                    <p>
+                        PDF or DOCX<br>
+                        Maximum size: 10 MB
+                    </p>
+
+                    <input type="file" id="resumeFile" accept=".pdf,.docx">
+
+                    <label for="resumeFile" class="upload-button">
+                        Choose Resume
+                    </label>
+
+                    <span id="file-name">
+                        No file selected
+                    </span>
+
+                </div>
+
+
+                <!-- Job Description -->
+
+                <div class="jd-box">
+
+                    <h3>Job Description</h3>
+
+                    <p>
+                        Paste the job description you want to match your resume against.
+                    </p>
+
+                    <textarea
+                        id="jobDescription"
+                        placeholder="Paste job description here..."></textarea>
+
+                    <button class="analyze-button" onclick="analyzeResume()">
+                        Analyze Resume →
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= SCORE CARDS ================= -->
+
+    <section class="score-grid">
+
+        <div class="score-card primary">
+
+            <div class="score-header">
+                <span>ATS Compatibility</span>
+                <span>ⓘ</span>
+            </div>
+
+            <div class="score">
+                82<span>/100</span>
+            </div>
+
+            <div class="progress">
+                <div class="progress-fill" style="width:82%"></div>
+            </div>
+
+            <p class="positive">
+                ↑ 8% compared with your previous resume
+            </p>
+
+        </div>
+
+
+        <div class="score-card">
+
+            <div class="score-header">
+                <span>Job Match</span>
+                <span>◈</span>
+            </div>
+
+            <div class="score">
+                86<span>%</span>
+            </div>
+
+            <p>
+                Strong compatibility
+            </p>
+
+            <div class="mini-bar">
+                <div style="width:86%"></div>
+            </div>
+
+        </div>
+
+
+        <div class="score-card">
+
+            <div class="score-header">
+                <span>Skills Match</span>
+                <span>✓</span>
+            </div>
+
+            <div class="score">
+                78<span>%</span>
+            </div>
+
+            <p>
+                14 of 18 required skills
+            </p>
+
+            <div class="mini-bar">
+                <div style="width:78%"></div>
+            </div>
+
+        </div>
+
+
+        <div class="score-card">
+
+            <div class="score-header">
+                <span>Resume Quality</span>
+                <span>★</span>
+            </div>
+
+            <div class="score">
+                88<span>/100</span>
+            </div>
+
+            <p>
+                Very good
+            </p>
+
+            <div class="mini-bar">
+                <div style="width:88%"></div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= ANALYSIS ================= -->
+
+    <section class="analysis-grid">
+
+
+        <!-- SCORE BREAKDOWN -->
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <h2>ATS Score Breakdown</h2>
+                    <p>Why did your resume receive this score?</p>
+                </div>
+
+                <span class="info-badge">
+                    XAI
+                </span>
+
+            </div>
+
+
+            <div class="breakdown">
+
+                <div class="breakdown-item">
+
+                    <div class="breakdown-info">
+                        <span>Skills</span>
+                        <strong>34 / 40</strong>
+                    </div>
+
+                    <div class="bar">
+                        <div style="width:85%"></div>
+                    </div>
+
+                </div>
+
+
+                <div class="breakdown-item">
+
+                    <div class="breakdown-info">
+                        <span>Experience</span>
+                        <strong>17 / 20</strong>
+                    </div>
+
+                    <div class="bar">
+                        <div style="width:85%"></div>
+                    </div>
+
+                </div>
+
+
+                <div class="breakdown-item">
+
+                    <div class="breakdown-info">
+                        <span>Projects</span>
+                        <strong>13 / 15</strong>
+                    </div>
+
+                    <div class="bar">
+                        <div style="width:87%"></div>
+                    </div>
+
+                </div>
+
+
+                <div class="breakdown-item">
+
+                    <div class="breakdown-info">
+                        <span>Education</span>
+                        <strong>9 / 10</strong>
+                    </div>
+
+                    <div class="bar">
+                        <div style="width:90%"></div>
+                    </div>
+
+                </div>
+
+
+                <div class="breakdown-item">
+
+                    <div class="breakdown-info">
+                        <span>Keywords</span>
+                        <strong>6 / 10</strong>
+                    </div>
+
+                    <div class="bar warning">
+                        <div style="width:60%"></div>
+                    </div>
+
+                </div>
+
+
+                <div class="breakdown-item">
+
+                    <div class="breakdown-info">
+                        <span>Formatting</span>
+                        <strong>3 / 5</strong>
+                    </div>
+
+                    <div class="bar warning">
+                        <div style="width:60%"></div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RESUME HEATMAP -->
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <h2>Resume Heatmap</h2>
+                    <p>Areas requiring improvement</p>
+                </div>
+
+            </div>
+
+
+            <div class="resume-preview">
+
+                <div class="resume-line title">
+                    MY NAME
+                </div>
+
+                <div class="resume-line subtitle">
+                    Software Engineer
+                </div>
+
+                <div class="heat-section good">
+                    <strong>Skills</strong>
+                    <p>Java · Python · React · SQL · MongoDB</p>
+                </div>
+
+                <div class="heat-section medium">
+                    <strong>Experience</strong>
+                    <p>Software Development Intern</p>
+                    <p>Developed web applications...</p>
+                </div>
+
+                <div class="heat-section good">
+                    <strong>Projects</strong>
+                    <p>ResumeXAI · Deepfake Detection</p>
+                </div>
+
+                <div class="heat-section weak">
+                    <strong>Achievements</strong>
+                    <p>Add measurable achievements</p>
+                </div>
+
+            </div>
+
+            <div class="heatmap-legend">
+
+                <span>
+                    <i class="legend-good"></i>
+                    Strong
+                </span>
+
+                <span>
+                    <i class="legend-medium"></i>
+                    Moderate
+                </span>
+
+                <span>
+                    <i class="legend-weak"></i>
+                    Needs Improvement
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= SKILLS ================= -->
+
+    <section class="analysis-grid">
+
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <h2>Skill Analysis</h2>
+                    <p>Comparison with job requirements</p>
+                </div>
+
+            </div>
+
+
+            <h4 class="skill-heading matched">
+                ✓ Matched Skills
+            </h4>
+
+            <div class="skill-list">
+
+                <span>Java</span>
+                <span>Python</span>
+                <span>SQL</span>
+                <span>React</span>
+                <span>MongoDB</span>
+                <span>Git</span>
+
+            </div>
+
+
+            <h4 class="skill-heading missing">
+                ! Missing Skills
+            </h4>
+
+            <div class="skill-list missing-list">
+
+                <span>Spring Boot</span>
+                <span>Docker</span>
+                <span>AWS</span>
+                <span>REST API</span>
+
+            </div>
+
+        </div>
+
+
+        <!-- AI RECOMMENDATIONS -->
+
+        <div class="panel ai-panel">
+
+            <div class="ai-title">
+
+                <div class="ai-icon">
+                    ✦
+                </div>
+
+                <div>
+                    <h2>AI Recommendations</h2>
+                    <p>Generated by ResumeXAI</p>
+                </div>
+
+            </div>
+
+
+            <div class="recommendation">
+
+                <strong>Add Missing Skills</strong>
+
+                <p>
+                    Add Spring Boot, Docker and AWS if you have
+                    relevant experience with these technologies.
+                </p>
+
+            </div>
+
+
+            <div class="recommendation">
+
+                <strong>Improve Project Description</strong>
+
+                <p>
+                    Include measurable outcomes such as performance
+                    improvements, users, or accuracy.
+                </p>
+
+            </div>
+
+
+            <div class="recommendation">
+
+                <strong>Improve Keywords</strong>
+
+                <p>
+                    Add relevant terms from the job description
+                    naturally within your experience and projects.
+                </p>
+
+            </div>
+
+
+            <button class="secondary-button">
+                Generate Detailed Report →
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= IMPACT ================= -->
+
+    <section class="panel impact-panel">
+
+        <div class="panel-header">
+
+            <div>
+                <h2>Improvement Impact Prediction</h2>
+                <p>See how recommended changes could affect your ATS score.</p>
+            </div>
+
+        </div>
+
+
+        <div class="impact-grid">
+
+            <div class="impact-item">
+
+                <span>Current Score</span>
+
+                <strong>82</strong>
+
+            </div>
+
+
+            <div class="impact-arrow">
+                →
+            </div>
+
+
+            <div class="impact-item">
+
+                <span>Add Missing Skills</span>
+
+                <strong>+4</strong>
+
+            </div>
+
+
+            <div class="impact-arrow">
+                →
+            </div>
+
+
+            <div class="impact-item">
+
+                <span>Improve Keywords</span>
+
+                <strong>+3</strong>
+
+            </div>
+
+
+            <div class="impact-arrow">
+                →
+            </div>
+
+
+            <div class="impact-item final">
+
+                <span>Potential Score</span>
+
+                <strong>89</strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            ResumeXAI © 2026 · Explainable AI Resume Intelligence
+        </p>
+
+    </footer>
+
+</main>
+
+
+<script>
+
+const resumeFile = document.getElementById("resumeFile");
+
+resumeFile.addEventListener("change", function () {
+
+    const fileName = document.getElementById("file-name");
+
+    if (this.files.length > 0) {
+        fileName.textContent = this.files[0].name;
+    }
+
+});
+
+
+function analyzeResume() {
+
+    const file = resumeFile.files[0];
+    const jd = document.getElementById("jobDescription").value;
+
+    if (!file) {
+        alert("Please upload your resume.");
+        return;
+    }
+
+    if (!jd.trim()) {
+        alert("Please enter the job description.");
+        return;
+    }
+
+    alert(
+        "Resume submitted successfully!\n\n" +
+        "Backend API integration can now process the resume."
+    );
+
+}
+
+</script>
+
+</body>
+</html>
